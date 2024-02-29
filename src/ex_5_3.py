@@ -21,3 +21,10 @@ if __name__ == "__main__":
     parser.add_argument("infile",help="Input filename")
     parser.add_argument("outfile",help="Output filename")    
     args = parser.parse_args()
+    raw_data = np.loadtxt(args.infile)
+    data_mean = np.mean(raw_data)
+    raw_data -= data_mean
+    data_std = np.std(raw_data)
+    raw_data /= data_std
+    processed = raw_data
+    np.savetxt(args.outfile,processed,fmt='%.2e')
